@@ -30,7 +30,7 @@ namespace Payroll
             services.AddDbContext<DataContext>(options =>
                options.UseSqlServer(
                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
 
         }

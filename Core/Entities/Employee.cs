@@ -16,6 +16,7 @@ namespace Core.Entities
         public string Address { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
+        public string JoinDate { get; set; }
 
         [ForeignKey("Rank")]
         public int RankId { get; set; }
@@ -24,13 +25,12 @@ namespace Core.Entities
         [ForeignKey("Department")]
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
-        public string JoinDate { get; set; }
+
+
 
         [ForeignKey("Incentive")]
         public int IncentiveId { get; set; }
         public Incentive Incentive { get; set; }
-
-        public double TotalIncentive { get; set; }
 
         public ICollection<Attendance> Attendance { get; set; }
 

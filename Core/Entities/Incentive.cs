@@ -11,14 +11,6 @@ namespace Core.Entities
     {
         public int Id { get; set; }
         public double EmpIncentive { get; set; }
-
-        [EnumDataType(typeof(Seniority))]
-        public Seniority SeniorityLevel { get; set; }
-
-        public enum Seniority
-        {
-            FiveYears,
-            SevenYears
-        }
+        public string SeniorityLevel { get; set; }
     }
 }
