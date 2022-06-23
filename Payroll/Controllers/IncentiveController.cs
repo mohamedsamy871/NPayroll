@@ -14,16 +14,11 @@ namespace Payroll.Controllers
     public class IncentiveController : Controller
     {
         private readonly IUnitOfWork<Incentive> _seniorityIncentive;
-        private readonly IUnitOfWork<Department> _department;
-        private readonly IUnitOfWork<Employee> _employee;
         private readonly DataContext _db;
 
-        public IncentiveController(IUnitOfWork<Incentive> seniorityIncentive,IUnitOfWork<Department> department,
-                                    IUnitOfWork<Employee> employee,DataContext db)
+        public IncentiveController(IUnitOfWork<Incentive> seniorityIncentive,DataContext db)
         {
             _seniorityIncentive = seniorityIncentive;
-            _department = department;
-            _employee = employee;
             _db = db;
         }
         // GET: IncentiveController

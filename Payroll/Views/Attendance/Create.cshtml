@@ -1,0 +1,62 @@
+﻿@model Core.Entities.Attendance
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Attendance</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Absence" class="control-label"></label>
+                <select asp-for="Absence" class="form-control"></select>
+                <span asp-validation-for="Absence" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DeductionAmount" class="control-label"></label>
+                <input asp-for="DeductionAmount" class="form-control" />
+                <span asp-validation-for="DeductionAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IncentiveAmount" class="control-label"></label>
+                <input asp-for="IncentiveAmount" class="form-control" />
+                <span asp-validation-for="IncentiveAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Month" class="control-label"></label>
+                <input asp-for="Month" class="form-control" />
+                <span asp-validation-for="Month" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Year" class="control-label"></label>
+                <input asp-for="Year" class="form-control" />
+                <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                <label asp-for="EmployeeId" class="control-label"></label>
+                <select asp-for="EmployeeId" class="form-control" asp-items="ViewBag.EmployeeId"></select>
+            </div>*@
+            @*<div class="form-group">
+                <label class="control-label"> Job Rank</label>
+                @Html.DropDownListFor(m => m.EmployeeId, new SelectList(Model.SalaryManagement, "Id", "JobRank"), "Select a Value", new { @class = "form-control" })
+            </div>*@
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
