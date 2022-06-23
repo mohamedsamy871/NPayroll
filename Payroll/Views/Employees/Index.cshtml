@@ -1,0 +1,186 @@
+﻿@model IEnumerable<Core.Entities.Employee>
+
+@{
+    ViewData["Title"] = "Getting Employees";
+}
+<style>
+    table tr td button {
+        background-color: transparent;
+        border: none;
+        color: #777;
+    }
+
+    table tr td a {
+        color: #777;
+        text-decoration: none;
+    }
+
+        table tr td a:hover {
+            color: #777;
+            text-decoration: none;
+        }
+
+    .modal-body p span {
+        font-weight: bold;
+    }
+</style>
+<h4>Employees List</h4>
+<hr />
+<p>
+    <a asp-action="AddEmployee">Create New Employee</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Department)
+            </th>
+            <th>
+                Job Rank
+            </th>
+            <th>
+                Seniority Level
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Department.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rank.JobRank)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Incentive.SeniorityLevel)
+                </td>
+                <td>
+                    <!-- Button trigger modal -->
+                    <button type="button" data-toggle="modal" data-target="#button-@item.Id">
+                        Details |
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="button-@item.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel"> @Html.DisplayFor(modelItem => item.Name)</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>
+                                        <span>
+                                            Department:
+                                        </span>
+                                        @Html.DisplayFor(modelItem => item.Department.Name)
+                                    </p>
+                                    <p>
+                                        <span>
+                                            Job Rank:
+                                        </span>
+                                        @Html.DisplayFor(modelItem => item.Rank.JobRank)
+                                    </p>
+                                    <p>
+                                        <span>
+                                            Seniority Level:
+                                        </span>
+                                        @Html.DisplayFor(modelItem => item.Incentive.SeniorityLevel)
+                                    </p>
+                                    <p>
+                                        <span>
+                                            @Html.DisplayNameFor(model => model.BirthDate):
+                                        </span>
+                                        @Html.DisplayFor(modelItem => item.BirthDate)
+                                    </p>
+                                    <p>
+                                        <span>
+                                            @Html.DisplayNameFor(model => model.Address):
+                                        </span>
+                                        @Html.DisplayFor(modelItem => item.Address)
+                                    </p>
+                                    <p>
+                                        <span>
+                                            @Html.DisplayNameFor(model => model.Phone):
+                                        </span>
+                                        @Html.DisplayFor(modelItem => item.Phone)
+                                    </p>
+                                    <p>
+                                        <span>
+                                            @Html.DisplayNameFor(model => model.Email):
+                                        </span>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </p>
+                                    <p>
+                                        <span>
+                                            @Html.DisplayNameFor(model => model.JoinDate):
+                                        </span>
+                                        @Html.DisplayFor(modelItem => item.JoinDate)
+                                    </p>
+                                    <p>
+                                        <span>
+                                            Salary:
+                                        </span>
+                                        @Html.DisplayFor(modelItem => item.Rank.Salary)
+                                    </p>
+                                    <p>
+                                        <span>
+                                            Department Incentive:
+                                        </span>
+                                        @Html.DisplayFor(modelItem => item.Department.Incentive)
+                                    </p>
+                                    <p>
+                                        <span>
+                                            Incentive Due to Seniority Level:
+                                        </span>
+                                        @Html.DisplayFor(modelItem => item.Incentive.EmpIncentive)
+                                    </p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a asp-action="EditEmployee" asp-route-id="@item.Id">Edit</a> |
+                    <!-- Button trigger modal -->
+                    <button type="button" data-toggle="modal" data-target="#delete-@item.Id">
+                        Delete
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="delete-@item.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Confirmation for Delete</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                   Are you sure you want to delete @item.Name
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

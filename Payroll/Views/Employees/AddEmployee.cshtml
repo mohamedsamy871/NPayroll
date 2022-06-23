@@ -1,7 +1,7 @@
 ﻿@model Core.Entities.Employee
 
 @{
-    ViewData["Title"] = "AddEmployee";
+    ViewData["Title"] = "Add Employee";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -43,7 +43,7 @@
 
             <div class="form-group">
                 <label class="control-label">Select Department</label>
-                @Html.DropDownListFor(m => m.DepartmentId, new SelectList(ViewBag.departments, "Id", "Name"), "Select Department",new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.DepartmentId, new SelectList(ViewBag.departments, "Id", "Name"), "Select Department", new { @class = "form-control" })
             </div>
 
             <div class="form-group">
