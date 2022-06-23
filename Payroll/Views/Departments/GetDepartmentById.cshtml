@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Core.Entities.Employee>
+
+@{
+    ViewData["Title"] = "GetDepartmentById";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Employees In Department</h1>
+
+<div>
+    @foreach (var item in Model)
+    {
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayFor(model => item.Name)
+            </dt>
+        </dl>
+    }
+
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

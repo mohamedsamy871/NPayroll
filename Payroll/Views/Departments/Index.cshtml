@@ -4,7 +4,27 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    table tr td button {
+        background-color: transparent;
+        border: none;
+        color: #777;
+    }
 
+    table tr td a {
+        color: #777;
+        text-decoration: none;
+    }
+
+        table tr td a:hover {
+            color: #777;
+            text-decoration: none;
+        }
+
+    .modal-body p span {
+        font-weight: bold;
+    }
+</style>
 <h1>Departments</h1>
 <p>
     <a asp-action="Create">Create New Department</a>
@@ -25,12 +45,12 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                <a asp-action="GetById" asp-controller="Departments" asp-route-id="@item.Id">
+                <a asp-action="GetDepartmentById" asp-controller="Departments" asp-route-id="@item.Id">
                     @Html.DisplayFor(modelItem => item.Name)
                 </a>
             </td>
             <td>
-                <a asp-action="GetById" asp-controller="Departments" asp-route-id="@item.Id">
+                <a asp-action="GetDepartmentById" asp-controller="Departments" asp-route-id="@item.Id">
                     @Html.DisplayFor(modelItem => item.Incentive)
                 </a>
             </td>
@@ -40,7 +60,6 @@
                 <button type="button" data-toggle="modal" data-target="#delete-@item.Id">
                     Delete
                 </button>
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 <!-- Modal -->
                 <div class="modal fade" id="delete-@item.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">

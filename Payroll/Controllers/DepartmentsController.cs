@@ -24,6 +24,12 @@ namespace Payroll.Controllers
             
             return View(_department.Entity.GetAll());
         }
+        public IActionResult GetDepartmentById(int id)
+        {
+            var _emps = _db.Employees.Where(m => m.DepartmentId == id).ToList();
 
+            return View(_emps);
+
+        }
     }
 }
