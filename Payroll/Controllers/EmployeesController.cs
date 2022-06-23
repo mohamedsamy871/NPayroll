@@ -4,6 +4,7 @@ using Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Payroll.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace Payroll.Controllers
         private readonly IUnitOfWork<Employee> _emp;
 
         private readonly DataContext _db;
+        private readonly EmployeesData _empdata;
 
         public EmployeesController( IUnitOfWork<Employee> employee, DataContext db)
         {
@@ -31,7 +33,15 @@ namespace Payroll.Controllers
 
         public IActionResult EditEmployee(int id)
         {
-            return View();
+            var employeeInDb = _emp.Entity.GetById(id);
+            EmployeesData _empDate = new EmployeesData()
+            {
+                Departments = _db.Departments.ToList(),
+                Incentive = _db.Incentive.ToList(),
+                Rank = _db.Rank.ToList(),
+                Employee = employeeInDb
+            };
+            return View(_empDate);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -50,10 +60,14 @@ namespace Payroll.Controllers
         }
         public IActionResult AddEmployee()
         {
-            ViewBag.departments = _db.Departments.ToList();
-            ViewBag.rank = _db.Rank.ToList();
-            ViewBag.incentive = _db.Incentive.ToList();
-            return View();
+            EmployeesData _empDate = new EmployeesData()
+            {
+                Departments = _db.Departments.ToList(),
+                Incentive = _db.Incentive.ToList(),
+                Rank = _db.Rank.ToList(),
+                Employee = new Employee()
+            };
+            return View(_empDate);
         }
 
         [HttpPost]
