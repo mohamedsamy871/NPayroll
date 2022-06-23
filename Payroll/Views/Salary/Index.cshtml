@@ -1,42 +1,23 @@
-﻿@model IEnumerable<Core.Entities.Department>
+﻿@model IEnumerable<Core.Entities.SalaryManagement>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<style>
-    table tr td button {
-        background-color: transparent;
-        border: none;
-        color: #777;
-    }
 
-    table tr td a {
-        color: #777;
-        text-decoration: none;
-    }
+<h1>Index</h1>
 
-        table tr td a:hover {
-            color: #777;
-            text-decoration: none;
-        }
-
-    .modal-body p span {
-        font-weight: bold;
-    }
-</style>
-<h1>Departments</h1>
 <p>
-    <a asp-action="AddDepartment">Create New Department</a>
+    <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.JobRank)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Incentive)
+                @Html.DisplayNameFor(model => model.Salary)
             </th>
             <th></th>
         </tr>
@@ -45,16 +26,14 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.JobRank)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Incentive)
+                @Html.DisplayFor(modelItem => item.Salary)
             </td>
             <td>
-                <a asp-action="EditDepartment" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="GetDepartmentById" asp-controller="Departments" asp-route-id="@item.Id"
-                   data-toggle="tooltip" data-placement="left" title="To Show Employees Inside This Department">Details</a> |
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <!-- Button trigger modal -->
                 <button type="button" data-toggle="modal" data-target="#delete-@item.Id">
                     Delete
@@ -70,7 +49,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                Are you sure you want to delete @item.Name ?
+                                Are you sure you want to delete @item.JobRank ?
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -3,27 +3,7 @@
 @{
     ViewData["Title"] = "Getting Employees";
 }
-<style>
-    table tr td button {
-        background-color: transparent;
-        border: none;
-        color: #777;
-    }
 
-    table tr td a {
-        color: #777;
-        text-decoration: none;
-    }
-
-        table tr td a:hover {
-            color: #777;
-            text-decoration: none;
-        }
-
-    .modal-body p span {
-        font-weight: bold;
-    }
-</style>
 <h4>Employees List</h4>
 <hr />
 <p>
@@ -60,7 +40,7 @@
                     @Html.DisplayFor(modelItem => item.Department.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Rank.JobRank)
+                    @Html.DisplayFor(modelItem => item.SalaryManagement.JobRank)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Incentive.SeniorityLevel)
@@ -91,7 +71,7 @@
                                         <span>
                                             Job Rank:
                                         </span>
-                                        @Html.DisplayFor(modelItem => item.Rank.JobRank)
+                                        @Html.DisplayFor(modelItem => item.SalaryManagement.JobRank)
                                     </p>
                                     <p>
                                         <span>
@@ -133,7 +113,7 @@
                                         <span>
                                             Salary:
                                         </span>
-                                        @Html.DisplayFor(modelItem => item.Rank.Salary)
+                                        @Html.DisplayFor(modelItem => item.SalaryManagement.Salary)
                                     </p>
                                     <p>
                                         <span>

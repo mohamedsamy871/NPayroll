@@ -31,5 +31,45 @@ namespace Payroll.Controllers
             return View(_emps);
 
         }
+        public IActionResult EditDepartment(int id)
+        {
+            ViewBag.DepartmentId = id;
+            return View(_department.Entity.GetById(id));
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditDepartment(Department department)
+        {
+            try
+            {
+                _department.Entity.Update(department);
+                _department.Save();
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+        public IActionResult AddDepartment()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddDepartment(Department department)
+        {
+            _department.Entity.Add(department);
+            _department.Save();
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Delete(int id)
+        {
+            _department.Entity.Delete(id);
+            _department.Save();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

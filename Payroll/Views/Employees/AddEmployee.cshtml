@@ -38,7 +38,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label"> Job Rank</label>
-                @Html.DropDownListFor(m => m.Employee.RankId, new SelectList(Model.Rank, "Id", "JobRank"), "Select a Value", new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.Employee.SalaryManagementId, new SelectList(Model.SalaryManagement, "Id", "JobRank"), "Select a Value", new { @class = "form-control" })
             </div>
 
             <div class="form-group">

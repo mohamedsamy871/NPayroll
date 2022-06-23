@@ -22,7 +22,7 @@ namespace Infrastructure
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Incentive> Incentive { get; set; }
-        public DbSet<Rank> Rank { get; set; }
+        public DbSet<SalaryManagement> SalaryManagement { get; set; }
 
     }
 }

@@ -32,7 +32,6 @@ namespace Infrastructure.Repository
         {
             return table.ToList();
         }
-
         public T GetById(int id)
         {
             return table.Find(id);

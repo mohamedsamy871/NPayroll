@@ -24,7 +24,7 @@ namespace Payroll.Controllers
         // GET: EmployeesController
         public ActionResult Index()
         {
-            var employees = _db.Employees.Include(m => m.Department).Include(m => m.Incentive).Include(m => m.Rank).ToList();
+            var employees = _db.Employees.Include(m => m.Department).Include(m => m.Incentive).Include(m => m.SalaryManagement).ToList();
             return View(employees);
         }
         public IActionResult EditEmployee(int id)
@@ -36,7 +36,7 @@ namespace Payroll.Controllers
             {
                 Departments = _db.Departments.ToList(),
                 Incentive = _db.Incentive.ToList(),
-                Rank = _db.Rank.ToList(),
+                SalaryManagement = _db.SalaryManagement.ToList(),
                 Employee = employeeInDb
             };
             return View(_empDate);
@@ -62,7 +62,7 @@ namespace Payroll.Controllers
             {
                 Departments = _db.Departments.ToList(),
                 Incentive = _db.Incentive.ToList(),
-                Rank = _db.Rank.ToList(),
+                SalaryManagement = _db.SalaryManagement.ToList(),
                 Employee = new Employee()
             };
             return View(_empDate);

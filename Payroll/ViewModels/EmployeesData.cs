@@ -10,7 +10,7 @@ namespace Payroll.ViewModels
     {
         public Employee Employee { get; set; }
         public IEnumerable<Department> Departments { get; set; }
-        public IEnumerable<Rank> Rank { get; set; }
+        public IEnumerable<SalaryManagement> SalaryManagement { get; set; }
         public IEnumerable<Incentive> Incentive { get; set; }
     }
 }

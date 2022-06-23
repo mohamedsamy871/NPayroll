@@ -6,6 +6,27 @@
     <title>@ViewData["Title"] - Payroll</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        table tr td button {
+            background-color: transparent;
+            border: none;
+            color: #777;
+        }
+
+        table tr td a {
+            color: #777;
+            text-decoration: none;
+        }
+
+            table tr td a:hover {
+                color: #777;
+                text-decoration: none;
+            }
+
+        .modal-body p span {
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -25,7 +46,13 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Employees" asp-action="Index">Employees</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Salary" asp-action="Index">Salary</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Departments" asp-action="Index">Departments</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Incentive" asp-action="Index">Incentive</a>
                         </li>
                     </ul>
                 </div>

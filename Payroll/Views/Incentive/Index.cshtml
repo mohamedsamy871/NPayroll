@@ -1,42 +1,23 @@
-﻿@model IEnumerable<Core.Entities.Department>
+﻿@model IEnumerable<Core.Entities.Incentive>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<style>
-    table tr td button {
-        background-color: transparent;
-        border: none;
-        color: #777;
-    }
 
-    table tr td a {
-        color: #777;
-        text-decoration: none;
-    }
-
-        table tr td a:hover {
-            color: #777;
-            text-decoration: none;
-        }
-
-    .modal-body p span {
-        font-weight: bold;
-    }
-</style>
-<h1>Departments</h1>
+<h4>Incentive Management</h4>
+<hr />
 <p>
-    <a asp-action="AddDepartment">Create New Department</a>
+    <a asp-action="Create">Create New Incentive</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.EmpIncentive)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Incentive)
+                @Html.DisplayNameFor(model => model.SeniorityLevel)
             </th>
             <th></th>
         </tr>
@@ -45,17 +26,14 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.EmpIncentive)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Incentive)
+                @Html.DisplayFor(modelItem => item.SeniorityLevel)
             </td>
             <td>
-                <a asp-action="EditDepartment" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="GetDepartmentById" asp-controller="Departments" asp-route-id="@item.Id"
-                   data-toggle="tooltip" data-placement="left" title="To Show Employees Inside This Department">Details</a> |
-                <!-- Button trigger modal -->
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="GetIncentiveByEmpId" asp-route-id="@item.Id">Details</a> |
                 <button type="button" data-toggle="modal" data-target="#delete-@item.Id">
                     Delete
                 </button>
@@ -70,7 +48,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                Are you sure you want to delete @item.Name ?
+                                Are you sure you want to delete @item.SeniorityLevel ?
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

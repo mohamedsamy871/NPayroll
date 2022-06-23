@@ -10,11 +10,14 @@
 <div>
     @foreach (var item in Model)
     {
-        <dl class="row">
-            <dt class="col-sm-2">
-                @Html.DisplayFor(model => item.Name)
-            </dt>
-        </dl>
+    <dl class="row">
+        <dd class="col-sm-2">
+            @Html.DisplayFor(model => item.Name)
+        </dd>
+        <dd class="col-sm-2">
+            <a asp-controller="Employees" asp-action="EditEmployee" asp-route-id="@item.Id">Edit</a>
+        </dd>
+    </dl>
     }
 
 </div>

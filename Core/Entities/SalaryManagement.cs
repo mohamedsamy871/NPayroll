@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Core.Entities
 {
-    public class Rank
+    public class SalaryManagement
     {
         public int Id { get; set; }
         public string JobRank { get; set; }
