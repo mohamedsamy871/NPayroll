@@ -15,10 +15,7 @@ namespace Payroll.Controllers
     public class EmployeesController : Controller
     {
         private readonly IUnitOfWork<Employee> _emp;
-
         private readonly DataContext _db;
-        private readonly EmployeesData _empdata;
-
         public EmployeesController( IUnitOfWork<Employee> employee, DataContext db)
         {
             _emp = employee;
@@ -30,9 +27,10 @@ namespace Payroll.Controllers
             var employees = _db.Employees.Include(m => m.Department).Include(m => m.Incentive).Include(m => m.Rank).ToList();
             return View(employees);
         }
-
         public IActionResult EditEmployee(int id)
         {
+            //to fix some form error I send Id by ViewBag
+            ViewBag.empId = id;
             var employeeInDb = _emp.Entity.GetById(id);
             EmployeesData _empDate = new EmployeesData()
             {
@@ -69,7 +67,6 @@ namespace Payroll.Controllers
             };
             return View(_empDate);
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult AddEmployee(Employee employee)
@@ -85,9 +82,6 @@ namespace Payroll.Controllers
                 return View();
             }
         }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
             try
@@ -95,7 +89,7 @@ namespace Payroll.Controllers
                 _emp.Entity.Delete(id);
                 _emp.Save();
                 return RedirectToAction(nameof(Index));
-            }
+            } 
             catch
             {
                 return NotFound();

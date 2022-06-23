@@ -19,17 +19,17 @@ namespace Core.Entities
         public string JoinDate { get; set; }
 
         [ForeignKey("Rank")]
-        public int RankId { get; set; }
+        public int? RankId { get; set; }
         public Rank Rank { get; set; }
 
         [ForeignKey("Department")]
-        public int DepartmentId { get; set; }
+        public int? DepartmentId { get; set; }
         public Department Department { get; set; }
 
 
 
         [ForeignKey("Incentive")]
-        public int IncentiveId { get; set; }
+        public int? IncentiveId { get; set; }
         public Incentive Incentive { get; set; }
 
         public ICollection<Attendance> Attendance { get; set; }
