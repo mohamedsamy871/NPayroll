@@ -10,5 +10,6 @@ namespace Payroll.ViewModels
     {
         public Attendance Attendance { get; set; }
         public IEnumerable<Employee> Employees{ get; set; }
+        public IEnumerable<AbsenceConditions> AbsenceConditions { get; set; }
     }
 }
