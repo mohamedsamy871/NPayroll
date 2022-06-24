@@ -9,41 +9,34 @@ using System.Threading.Tasks;
 
 namespace Payroll.Controllers
 {
-    public class AttendanceController : Controller
+    public class AbsenceController : Controller
     {
-        private readonly IUnitOfWork<Attendance> _attendance;
+        private readonly IUnitOfWork<AbsenceConditions> _absence;
 
-        public AttendanceController(IUnitOfWork<Attendance> attendance)
+        public AbsenceController(IUnitOfWork<AbsenceConditions> absence)
         {
-            _attendance = attendance;
+            _absence = absence;
         }
-        // GET: AttendanceController
+        // GET: AbsenceController
         public ActionResult Index()
         {
-            return View(_attendance.Entity.GetAll());
+            return View(_absence.Entity.GetAll());
         }
 
-        // GET: AttendanceController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: AttendanceController/Create
+        // GET: AbsenceController/Create
         public ActionResult Create()
         {
             return View();
         }
-
-        // POST: AttendanceController/Create
+        // POST: AbsenceController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Attendance attendance)
+        public ActionResult Create(AbsenceConditions absenceConditions)
         {
             try
             {
-                _attendance.Entity.Add(attendance);
-                _attendance.Save();
+                _absence.Entity.Add(absenceConditions);
+                _absence.Save();
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -51,20 +44,21 @@ namespace Payroll.Controllers
                 return View();
             }
         }
-
-        // GET: AttendanceController/Edit/5
+        // GET: AbsenceController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            ViewBag.AbsenceId = id;
+            return View(_absence.Entity.GetById(id));
         }
-
-        // POST: AttendanceController/Edit/5
+        // POST: AbsenceController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(AbsenceConditions absenceConditions)
         {
             try
             {
+                _absence.Entity.Update(absenceConditions);
+                _absence.Save();
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -72,25 +66,17 @@ namespace Payroll.Controllers
                 return View();
             }
         }
-
-        // GET: AttendanceController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        // POST: AttendanceController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
             try
             {
+                _absence.Entity.Delete(id);
+                _absence.Save();
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return NotFound();
             }
         }
     }
