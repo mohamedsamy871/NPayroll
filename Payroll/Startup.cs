@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Payroll.ReportingService;
+using Payroll.ReportingService.ReportingViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +34,7 @@ namespace Payroll
                    Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
-
+            services.AddTransient<IReporting, Reporting>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

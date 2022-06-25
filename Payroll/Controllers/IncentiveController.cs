@@ -4,6 +4,7 @@ using Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Payroll.ReportingService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +16,13 @@ namespace Payroll.Controllers
     {
         private readonly IUnitOfWork<Incentive> _seniorityIncentive;
         private readonly DataContext _db;
+        private readonly IReporting _iReporting;
 
-        public IncentiveController(IUnitOfWork<Incentive> seniorityIncentive,DataContext db)
+        public IncentiveController(IUnitOfWork<Incentive> seniorityIncentive,DataContext db, IReporting iReporting)
         {
             _seniorityIncentive = seniorityIncentive;
             _db = db;
+            _iReporting = iReporting;
         }
         // GET: IncentiveController
         public ActionResult Index()
@@ -92,6 +95,21 @@ namespace Payroll.Controllers
             catch
             {
                 return NotFound();
+            }
+        }
+        public IActionResult DownloadReport(IFormCollection obj)
+        {
+            string reportname = $"Employees_Incentive_{Guid.NewGuid():N}.xlsx";
+            var _empIncentive = _iReporting.GetIncentiveAndDeductionData();
+            if (_empIncentive.Count() > 0)
+            {
+                var exportbytes = ReportToExcel.ExporttoExcel<Payroll.ReportingService.ReportingViewModels.IncentiveAndDeductionData>(_empIncentive, reportname);
+                return File(exportbytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", reportname);
+            }
+            else
+            {
+                TempData["Message"] = "No Data to Export";
+                return RedirectToAction(nameof(Index));
             }
         }
     }

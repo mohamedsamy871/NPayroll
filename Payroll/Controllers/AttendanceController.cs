@@ -4,6 +4,7 @@ using Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Payroll.ReportingService;
 using Payroll.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -16,12 +17,13 @@ namespace Payroll.Controllers
     {
         private readonly IUnitOfWork<Attendance> _attendance;
         private readonly DataContext _db;
-
+        private readonly IReporting _iReporting;
         public AttendanceController(IUnitOfWork<Attendance> attendance,
-            IUnitOfWork<Employee> employees,IUnitOfWork<AbsenceConditions> conditions,DataContext db)
+            DataContext db,IReporting iReporting)
         {
             _attendance = attendance;
             _db = db;
+            _iReporting = iReporting;
         }
         // GET: AttendanceController
         public ActionResult Index()
@@ -108,6 +110,21 @@ namespace Payroll.Controllers
             catch
             {
                 return NotFound();
+            }
+        }
+        public IActionResult DownloadReport(IFormCollection obj)
+        {
+            string reportname = $"Employees_Attendance_{Guid.NewGuid():N}.xlsx";
+            var _emps = _iReporting.GetAttendanceData();
+            if (_emps.Count() > 0)
+            {
+                var exportbytes = ReportToExcel.ExporttoExcel<Payroll.ReportingService.ReportingViewModels.AttendanceData>(_emps, reportname);
+                return File(exportbytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", reportname);
+            }
+            else
+            {
+                TempData["Message"] = "No Data to Export";
+                return RedirectToAction(nameof(Index));
             }
         }
     }

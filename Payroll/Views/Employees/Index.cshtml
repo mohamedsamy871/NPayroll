@@ -164,3 +164,72 @@
         }
     </tbody>
 </table>
+
+<div class="col-md-12 mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">Download Employees Report</h5>
+        </div>
+        <form autocomplete="off" asp-controller="Employees" asp-antiforgery="true" asp-action="DownloadReport" method="post">
+            <div class="card-body register-card-body">
+                <div class="form-row">
+                    <button type="submit" id="btnsubmit" class="btn btn-success">Export to Excel</button>
+                </div>
+
+            </div>
+            <div class="card-footer">
+            </div>
+        </form>
+    </div>
+</div>
+<div class="col-md-12 mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">Download Employees' Salary Report</h5>
+        </div>
+        <form autocomplete="off" asp-controller="Salary" asp-antiforgery="true" asp-action="DownloadReport" method="post">
+            <div class="card-body register-card-body">
+                <div class="form-row">
+                    <button type="submit" id="btnsubmit" class="btn btn-success">Export to Excel</button>
+                </div>
+
+            </div>
+            <div class="card-footer">
+            </div>
+        </form>
+    </div>
+</div>
+<div class="col-md-12 mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">Download Employees' Attendance Report</h5>
+        </div>
+        <form autocomplete="off" asp-controller="Attendance" asp-antiforgery="true" asp-action="DownloadReport" method="post">
+            <div class="card-body register-card-body">
+                <div class="form-row">
+                    <button type="submit" id="btnsubmit" class="btn btn-success">Export to Excel</button>
+                </div>
+
+            </div>
+            <div class="card-footer">
+            </div>
+        </form>
+    </div>
+</div>
+<div class="col-md-12 mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">Download Employees' Incentive and Deduction Report</h5>
+        </div>
+        <form autocomplete="off" asp-controller="Incentive" asp-antiforgery="true" asp-action="DownloadReport" method="post">
+            <div class="card-body register-card-body">
+                <div class="form-row">
+                    <button type="submit" id="btnsubmit" class="btn btn-success">Export to Excel</button>
+                </div>
+
+            </div>
+            <div class="card-footer">
+            </div>
+        </form>
+    </div>
+</div>

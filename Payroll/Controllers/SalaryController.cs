@@ -3,6 +3,7 @@ using Core.Interfaces;
 using Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Payroll.ReportingService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,13 @@ namespace Payroll.Controllers
     {
         private readonly IUnitOfWork<SalaryManagement> _salary;
         private readonly DataContext _db;
-        public SalaryController(IUnitOfWork<SalaryManagement> salary, DataContext db)
+        private readonly IReporting _iReporting;
+
+        public SalaryController(IUnitOfWork<SalaryManagement> salary, DataContext db, IReporting iReporting)
         {
             _salary = salary;
             _db = db;
+            _iReporting = iReporting;
         }
         // GET: SalaryController
         public ActionResult Index()
@@ -94,6 +98,22 @@ namespace Payroll.Controllers
             catch
             {
                 return NotFound();
+            }
+        }
+
+        public IActionResult DownloadReport(IFormCollection obj)
+        {
+            string reportname = $"Employees_Salary_{Guid.NewGuid():N}.xlsx";
+            var _emps = _iReporting.GetSalaryData();
+            if (_emps.Count() > 0)
+            {
+                var exportbytes = ReportToExcel.ExporttoExcel<Payroll.ReportingService.ReportingViewModels.SalaryData>(_emps, reportname);
+                return File(exportbytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", reportname);
+            }
+            else
+            {
+                TempData["Message"] = "No Data to Export";
+                return RedirectToAction(nameof(Index));
             }
         }
     }

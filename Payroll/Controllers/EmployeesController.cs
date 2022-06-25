@@ -4,11 +4,10 @@ using Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Payroll.ReportingService;
 using Payroll.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Payroll.Controllers
 {
@@ -16,10 +15,13 @@ namespace Payroll.Controllers
     {
         private readonly IUnitOfWork<Employee> _emp;
         private readonly DataContext _db;
-        public EmployeesController( IUnitOfWork<Employee> employee, DataContext db)
+        private readonly IReporting _iReporting;
+
+        public EmployeesController( IUnitOfWork<Employee> employee, DataContext db, IReporting iReporting)
         {
             _emp = employee;
             _db = db;
+            _iReporting = iReporting;
         }
         // GET: EmployeesController
         public ActionResult Index()
@@ -95,5 +97,21 @@ namespace Payroll.Controllers
                 return NotFound();
             }
         }
+        public IActionResult DownloadReport(IFormCollection obj)
+        {
+            string reportname = $"Employees_{Guid.NewGuid():N}.xlsx";
+            var _emps = _iReporting.GetEmployeesData();
+            if (_emps.Count() > 0)
+            {
+                var exportbytes = ReportToExcel.ExporttoExcel<Payroll.ReportingService.ReportingViewModels.EmployeesData>(_emps, reportname);
+                return File(exportbytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", reportname);
+            }
+            else
+            {
+                TempData["Message"] = "No Data to Export";
+                return RedirectToAction(nameof(Index));
+            }
+        }
+
     }
 }
