@@ -18,12 +18,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="DeductionAmount" class="control-label"></label>
-                <input asp-for="DeductionAmount" class="form-control" />
+                <input asp-for="DeductionAmount" class="form-control" min="0" max="1"/>
                 <span asp-validation-for="DeductionAmount" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="IncentiveAmount" class="control-label"></label>
-                <input asp-for="IncentiveAmount" class="form-control" />
+                <input asp-for="IncentiveAmount" class="form-control" min="0" max="1"/>
                 <span asp-validation-for="IncentiveAmount" class="text-danger"></span>
             </div>
             <input type="hidden" asp-for="Id" value="@ViewBag.AbsenceId" />

@@ -10,7 +10,10 @@ namespace Core.Entities
     public class Incentive
     {
         public int Id { get; set; }
+
+        [Display(Name ="Incentive Percentage due to Seniority Level")]
         public double EmpIncentive { get; set; }
+
         public string SeniorityLevel { get; set; }
     }
 }

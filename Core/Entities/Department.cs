@@ -13,7 +13,7 @@ namespace Core.Entities
         public int Id { get; set; }
         public string Name { get; set; }
 
-        [Display(Name="Department Incentive")]
+        [Display(Name="Percentage of Department Incentive")]
         public double Incentive { get; set; }
         public ICollection<Employee> Employees { get; set; }
 

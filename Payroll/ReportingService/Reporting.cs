@@ -112,15 +112,17 @@ namespace Payroll.ReportingService.ReportingViewModels
                                            on e.IncentiveId equals n.Id
                                            join d in _db.Departments
                                            on e.DepartmentId equals d.Id
+                                           join s in _db.SalaryManagement
+                                           on e.SalaryManagementId equals s.Id
                                            select new IncentiveAndDeductionData()
                                            {
                                                EmployeeName = e.Name,
                                                Year = t.Year,
                                                Month = t.Month,
-                                               DeductionDueToAttendance = a.DeductionAmount,
-                                               IncentiveDueToAttendance = a.IncentiveAmount,
-                                               IncentiveDueToSeniorityLevel = n.EmpIncentive,
-                                               IncentiveDueToDepartment = d.Incentive
+                                               DeductionDueToAttendance = a.DeductionAmount*s.Salary,
+                                               IncentiveDueToAttendance = a.IncentiveAmount*s.Salary,
+                                               IncentiveDueToSeniorityLevel = n.EmpIncentive*s.Salary,
+                                               IncentiveDueToDepartment = d.Incentive*s.Salary
                                            }).ToList();
                 return _employeeIncentive;
             }
