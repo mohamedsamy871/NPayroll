@@ -1,4 +1,7 @@
+using Core.Entities;
 using Core.Interfaces;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Infrastructure;
 using Infrastructure.UnitOfWork;
 using Microsoft.AspNetCore.Builder;
@@ -10,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Payroll.ReportingService;
 using Payroll.ReportingService.ReportingViewModels;
+using Payroll.Validation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,9 +36,11 @@ namespace Payroll
             services.AddDbContext<DataContext>(options =>
                options.UseSqlServer(
                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddControllersWithViews().AddFluentValidation().AddRazorRuntimeCompilation();
             services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
             services.AddTransient<IReporting, Reporting>();
+            services.AddFluentValidationAutoValidation();
+            services.AddValidatorsFromAssemblyContaining<EmployeeValidator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

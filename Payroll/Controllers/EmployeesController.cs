@@ -1,5 +1,8 @@
 ﻿using Core.Entities;
 using Core.Interfaces;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using FluentValidation.Results;
 using Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +19,6 @@ namespace Payroll.Controllers
         private readonly IUnitOfWork<Employee> _emp;
         private readonly DataContext _db;
         private readonly IReporting _iReporting;
-
         public EmployeesController( IUnitOfWork<Employee> employee, DataContext db, IReporting iReporting)
         {
             _emp = employee;
@@ -73,16 +75,9 @@ namespace Payroll.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult AddEmployee(Employee employee)
         {
-            try
-            {
-                _emp.Entity.Add(employee);
-                _emp.Save();
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _emp.Entity.Add(employee);
+            _emp.Save();
+            return RedirectToAction(nameof(Index));
         }
         public ActionResult Delete(int id)
         {
