@@ -12,6 +12,8 @@ namespace Payroll.ReportingService.ReportingViewModels
         public double? IncentiveDueToAttendance { get; set; }
         public double IncentiveDueToSeniorityLevel { get; set; }
         public double IncentiveDueToDepartment { get; set; }
+        public double BasicSalary { get; set; }
+        public double NetSalary { get; set; }
         public int Month { get; set; }
         public int Year { get; set; }
     }
