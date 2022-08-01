@@ -15,12 +15,12 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Attendance.Month" class="control-label"></label>
-                <input asp-for="Attendance.Month" class="form-control" min="1" max="12"/>
+                <input asp-for="Attendance.Month" class="form-control"/>
                 <span asp-validation-for="Attendance.Month" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Attendance.Year" class="control-label"></label>
-                <input asp-for="Attendance.Year" class="form-control" min="2020" max="2040"/>
+                <input asp-for="Attendance.Year" class="form-control"/>
                 <span asp-validation-for="Attendance.Year" class="text-danger"></span>
             </div>
             <div class="form-group">

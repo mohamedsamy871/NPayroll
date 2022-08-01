@@ -58,16 +58,9 @@ namespace Payroll.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Attendance attendance)
         {
-            try
-            {
-                _attendance.Entity.Add(attendance);
-                _attendance.Save();
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _attendance.Entity.Add(attendance);
+            _attendance.Save();
+            return RedirectToAction(nameof(Index));
         }
         // GET: AttendanceController/Edit/5
         public ActionResult Edit(int id)
