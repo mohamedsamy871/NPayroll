@@ -17,7 +17,7 @@
                 @Html.DisplayNameFor(model => model.EmpIncentive)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SeniorityLevel)
+                @Html.DisplayNameFor(model => model.ExperienceInYears)
             </th>
             <th></th>
         </tr>
@@ -29,7 +29,7 @@
                 @Html.DisplayFor(modelItem => item.EmpIncentive)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SeniorityLevel)
+                @Html.DisplayFor(modelItem => item.ExperienceInYears)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
@@ -48,7 +48,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                Are you sure you want to delete @item.SeniorityLevel ?
+                                Are you sure you want to delete this item ?
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

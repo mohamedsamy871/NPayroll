@@ -49,16 +49,20 @@ namespace Payroll.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult EditEmployee(Employee employee)
         {
-            try
+            int employeeJoinYear = int.Parse(employee.JoinDate.Substring(0, 4));
+            int yearsOfExperience = DateTime.Now.Year - employeeJoinYear;
+            if (yearsOfExperience > 0)
             {
-                _emp.Entity.Update(employee);
-                _emp.Save();
-                return RedirectToAction(nameof(Index));
+                var incentiveIdFromDb = _db.Incentive.Where(x => x.ExperienceInYears <= yearsOfExperience).Select(x => x.Id).FirstOrDefault();
+
+                if (incentiveIdFromDb > 0)
+                {
+                    employee.IncentiveId = incentiveIdFromDb;
+                }
             }
-            catch
-            {
-                return View();
-            }
+            _emp.Entity.Update(employee);
+            _emp.Save();
+            return RedirectToAction(nameof(Index));
         }
         public IActionResult AddEmployee()
         {
@@ -75,6 +79,18 @@ namespace Payroll.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult AddEmployee(Employee employee)
         {
+            int employeeJoinYear = int.Parse(employee.JoinDate.Substring(0,4));
+            int yearsOfExperience = DateTime.Now.Year - employeeJoinYear;
+            if (yearsOfExperience > 0)
+            {
+                var incentiveIdFromDb = _db.Incentive.Where(x => x.ExperienceInYears <= yearsOfExperience).Select(x => x.Id).FirstOrDefault();
+
+                if (incentiveIdFromDb > 0)
+                {
+                    employee.IncentiveId = incentiveIdFromDb;
+                }
+            }
+
             _emp.Entity.Add(employee);
             _emp.Save();
             return RedirectToAction(nameof(Index));

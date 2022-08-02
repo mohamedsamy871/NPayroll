@@ -14,6 +14,7 @@ namespace Core.Entities
         [Display(Name ="Incentive Percentage due to Seniority Level")]
         public double EmpIncentive { get; set; }
 
-        public string SeniorityLevel { get; set; }
+        [Display(Name = "Years of Experience")]
+        public int ExperienceInYears { get; set; }
     }
 }
