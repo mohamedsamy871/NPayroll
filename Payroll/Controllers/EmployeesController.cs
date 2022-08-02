@@ -1,12 +1,10 @@
 ﻿using Core.Entities;
 using Core.Interfaces;
-using FluentValidation;
-using FluentValidation.AspNetCore;
-using FluentValidation.Results;
 using Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Payroll.HelperClasses;
 using Payroll.ReportingService;
 using Payroll.ViewModels;
 using System;
@@ -19,11 +17,14 @@ namespace Payroll.Controllers
         private readonly IUnitOfWork<Employee> _emp;
         private readonly DataContext _db;
         private readonly IReporting _iReporting;
-        public EmployeesController( IUnitOfWork<Employee> employee, DataContext db, IReporting iReporting)
+        private readonly IncentiveBasedOnJoinDate _incentiveBasedOnJoinDate;
+
+        public EmployeesController( IUnitOfWork<Employee> employee, DataContext db, IReporting iReporting, IncentiveBasedOnJoinDate incentiveBasedOnJoinDate)
         {
             _emp = employee;
             _db = db;
             _iReporting = iReporting;
+            _incentiveBasedOnJoinDate = incentiveBasedOnJoinDate;
         }
         // GET: EmployeesController
         public ActionResult Index()
@@ -49,17 +50,7 @@ namespace Payroll.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult EditEmployee(Employee employee)
         {
-            int employeeJoinYear = int.Parse(employee.JoinDate.Substring(0, 4));
-            int yearsOfExperience = DateTime.Now.Year - employeeJoinYear;
-            if (yearsOfExperience > 0)
-            {
-                var incentiveIdFromDb = _db.Incentive.Where(x => x.ExperienceInYears <= yearsOfExperience).Select(x => x.Id).FirstOrDefault();
-
-                if (incentiveIdFromDb > 0)
-                {
-                    employee.IncentiveId = incentiveIdFromDb;
-                }
-            }
+            employee.IncentiveId = _incentiveBasedOnJoinDate.GetIncentiveId(employee);
             _emp.Entity.Update(employee);
             _emp.Save();
             return RedirectToAction(nameof(Index));
@@ -79,20 +70,7 @@ namespace Payroll.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult AddEmployee(Employee employee)
         {
-            int employeeJoinYear = int.Parse(employee.JoinDate.Substring(0,4));
-            int yearsOfExperience = DateTime.Now.Year - employeeJoinYear;
-            if (yearsOfExperience > 0)
-            {
-                var incentiveFromDb = _db.Incentive.Where(x => x.ExperienceInYears <= yearsOfExperience).Select(x=>x.ExperienceInYears).ToList();
-                int maxIncentive = incentiveFromDb.Max();
-                int incentiveId = _db.Incentive.Where(x => x.ExperienceInYears == maxIncentive).Select(x => x.Id).FirstOrDefault();
-
-                if (maxIncentive > 0)
-                {
-                    employee.IncentiveId = incentiveId;
-                }
-            }
-
+            employee.IncentiveId = _incentiveBasedOnJoinDate.GetIncentiveId(employee);
             _emp.Entity.Add(employee);
             _emp.Save();
             return RedirectToAction(nameof(Index));

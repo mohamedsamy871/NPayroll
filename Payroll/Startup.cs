@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Payroll.HelperClasses;
 using Payroll.ReportingService;
 using Payroll.ReportingService.ReportingViewModels;
 using Payroll.Validation;
@@ -40,6 +41,7 @@ namespace Payroll
             services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
             services.AddTransient<IReporting, Reporting>();
             services.AddFluentValidationAutoValidation();
+            services.AddScoped<IncentiveBasedOnJoinDate>();
             services.AddValidatorsFromAssemblyContaining<EmployeeValidator>();
         }
 
