@@ -83,11 +83,13 @@ namespace Payroll.Controllers
             int yearsOfExperience = DateTime.Now.Year - employeeJoinYear;
             if (yearsOfExperience > 0)
             {
-                var incentiveIdFromDb = _db.Incentive.Where(x => x.ExperienceInYears <= yearsOfExperience).Select(x => x.Id).FirstOrDefault();
+                var incentiveFromDb = _db.Incentive.Where(x => x.ExperienceInYears <= yearsOfExperience).Select(x=>x.ExperienceInYears).ToList();
+                int maxIncentive = incentiveFromDb.Max();
+                int incentiveId = _db.Incentive.Where(x => x.ExperienceInYears == maxIncentive).Select(x => x.Id).FirstOrDefault();
 
-                if (incentiveIdFromDb > 0)
+                if (maxIncentive > 0)
                 {
-                    employee.IncentiveId = incentiveIdFromDb;
+                    employee.IncentiveId = incentiveId;
                 }
             }
 

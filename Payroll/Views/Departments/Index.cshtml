@@ -45,8 +45,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                
-                @Html.DisplayFor(modelItem => item.Name)
+                <a asp-action="GetDepartmentById" asp-controller="Departments" asp-route-id="@item.Id"
+                   data-toggle="tooltip" data-placement="left" title="Click To Show Employees Inside This Department">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Incentive)
